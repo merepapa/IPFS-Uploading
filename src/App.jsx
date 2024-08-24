@@ -8,7 +8,10 @@ function App() {
         method="post"
         enctype="multipart/form-data"
       >
-        <label for="text" className=" ">
+        <label
+          for="text"
+          className=" text-4xl font-extrabold text-gray-900 dark:text-white bg-gradient-to-tr from-gray-100 via-cyan-400 to-slate-300 text-transparent bg-clip-text"
+        >
           Text:
         </label>{" "}
         <br />
@@ -22,7 +25,12 @@ function App() {
         ></textarea>
         <br />
         <br />
-        <label for="file">File:</label>
+        <label
+          for="file"
+          className="text-4xl font-extrabold text-gray-900 dark:text-white bg-gradient-to-tr from-gray-100 via-cyan-400 to-slate-300 text-transparent bg-clip-text"
+        >
+          File:
+        </label>
         <br />
         <div class="flex items-center justify-center w-full">
           <label
