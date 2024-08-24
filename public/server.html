@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPFS CIDs</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>IPFS CIDs</h1>
+    <ul id="cid-list"></ul>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        try {
+          const response = await fetch("http://localhost:3000/api/cids");
+          const cids = await response.json();
+          const list = document.getElementById("cid-list");
+          console.log(cids);
+          cids.forEach((cid) => {
+            const listItem = document.createElement("li");
+            const link = document.createElement("a");
+            link.href = `https://ipfs.io/ipfs/${cid}`;
+            link.textContent = cid;
+            link.target = "_blank"; // Open in a new tab
+            listItem.appendChild(link);
+            list.appendChild(listItem);
+          });
+        } catch (error) {
+          console.error("Error fetching CIDs:", error);
+        }
+      });
+    </script>
+  </body>
+</html>
