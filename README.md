@@ -26,9 +26,19 @@ cd server
 npm install
 ```
 
+# running the program
+
+while in `\IPFS-Storage\Server`
+run this command.
+
 ```
 node server.js
 ```
 
-After doing these step go to public folder and open `index.html` to upload data to the IPFS program
-to see the files that have been uploaded you can open `server.html` too see the list of files.
+then open new terminal in the `\IPFS-Storage` directory and run
+
+```
+npm run dev
+```
+
+to see the files that have been uploaded you can open `public\server.html` too see the list of files.
