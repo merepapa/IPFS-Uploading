@@ -5,7 +5,8 @@ This is my Minor project which utilises IPFS storage to store text and file data
 
 # Installation
 
-Download and install [NODE JS](https://nodejs.org/en/download/prebuilt-installer) <a href="https://nodejs.org/en/download/prebuilt-installer" target="_blank">Node.js</a> .
+Download and install [NODE JS](https://nodejs.org/en/download/prebuilt-installer) 
+<a href="https://nodejs.org/en/download/prebuilt-installer" target="_blank">Node.js</a> .
 Install [Ifps Desktop](https://docs.ipfs.tech/install/ipfs-desktop/) or use Chocolatey `choco install ipfs-desktop`<br/>
 after installation make sure the settings of IPFS desktop looks like this
 ![image](https://i.ibb.co/Ky5xRBg/NVIDIA-Share-T9gz-MTLmm5.png) <br/>
