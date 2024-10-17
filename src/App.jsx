@@ -58,7 +58,7 @@ function App() {
                 drop
               </p>
               <p class="text-xs text-gray-500 dark:text-gray-400">
-                .TXT or PNG (MAX. 800x400px)
+                Upload Files (.PNG,.MP4,.PDF) (MAX. 800x400px)
               </p>
             </div>
             <input
