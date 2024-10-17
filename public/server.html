@@ -43,20 +43,16 @@
           // });
 
           cids.forEach((data) => {
-            let [cid, timestamp] = data.split("'"); // Split the data into CID and timestamp
+            let [cid, timestamp] = data.split("'");
 
-            // Create the list item and link
             const listItem = document.createElement("li");
             const link = document.createElement("a");
-            link.href = `https://ipfs.io/ipfs/${cid.trim()}`; // Use only the CID for the link
-            link.textContent = cid.trim(); // Display the CID text
-            link.target = "_blank"; // Open in a new tab
-
-            // Add the timestamp after the link
+            link.href = `https://ipfs.io/ipfs/${cid.trim()}`;
+            link.textContent = cid.trim();
+            link.target = "_blank";
             const timeSpan = document.createElement("span");
-            timeSpan.textContent = ` (${timestamp.trim()})`; // Display the time after the link
+            timeSpan.textContent = ` (${timestamp.trim()})`;
 
-            // Append the link and timestamp to the list item
             listItem.appendChild(link);
             listItem.appendChild(timeSpan);
             list.appendChild(listItem);
