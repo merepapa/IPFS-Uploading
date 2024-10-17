@@ -29,13 +29,36 @@
           const cids = await response.json();
           const list = document.getElementById("cid-list");
           console.log(cids);
-          cids.forEach((cid) => {
+
+          // cids.forEach((cid) => {
+          //   let temp = "";
+
+          //   const listItem = document.createElement("li");
+          //   const link = document.createElement("a");
+          //   link.href = `https://ipfs.io/ipfs/${cid}`;
+          //   link.textContent = cid;
+          //   link.target = "_blank"; // Open in a new tab
+          //   listItem.appendChild(link);
+          //   list.appendChild(listItem);
+          // });
+
+          cids.forEach((data) => {
+            let [cid, timestamp] = data.split("'"); // Split the data into CID and timestamp
+
+            // Create the list item and link
             const listItem = document.createElement("li");
             const link = document.createElement("a");
-            link.href = `https://ipfs.io/ipfs/${cid}`;
-            link.textContent = cid;
+            link.href = `https://ipfs.io/ipfs/${cid.trim()}`; // Use only the CID for the link
+            link.textContent = cid.trim(); // Display the CID text
             link.target = "_blank"; // Open in a new tab
+
+            // Add the timestamp after the link
+            const timeSpan = document.createElement("span");
+            timeSpan.textContent = ` (${timestamp.trim()})`; // Display the time after the link
+
+            // Append the link and timestamp to the list item
             listItem.appendChild(link);
+            listItem.appendChild(timeSpan);
             list.appendChild(listItem);
           });
         } catch (error) {

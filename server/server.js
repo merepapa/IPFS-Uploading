@@ -21,7 +21,7 @@ console.log(d.toLocaleString());
 
 fs.createReadStream("output.csv")
   .pipe(csv())
-  .on("data", (data) => results.push(data.CID))
+  .on("data", (data) => results.push(data.CID + `'` + data.DATE + data.TIME))
   .on("end", () => {
     results.forEach((cid) => {
       console.log(cid);
@@ -30,27 +30,27 @@ fs.createReadStream("output.csv")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-fs.createReadStream("output.csv")
-  .pipe(csv())
-  .on("data", (data) => Dates.push(data.DATE))
-  .on("end", () => {
-    Dates.forEach((DATE) => {
-      console.log(DATE);
-    });
-  });
+// fs.createReadStream("output.csv")
+//   .pipe(csv())
+//   .on("data", (data) => Dates.push(data.DATE))
+//   .on("end", () => {
+//     Dates.forEach((DATE) => {
+//       console.log(DATE);
+//     });
+//   });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
-fs.createReadStream("output.csv")
-  .pipe(csv())
-  .on("data", (data) => Times.push(data.TIME))
-  .on("end", () => {
-    Times.forEach((TIME) => {
-      console.log(TIME);
-    });
-  });
+// fs.createReadStream("output.csv")
+//   .pipe(csv())
+//   .on("data", (data) => Times.push(data.TIME))
+//   .on("end", () => {
+//     Times.forEach((TIME) => {
+//       console.log(TIME);
+//     });
+//   });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.urlencoded({ extended: true }));
 
 const addNewLine = (s) => s + "\n";
 
