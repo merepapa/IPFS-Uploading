@@ -10,11 +10,13 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "ethers": "^6.13.4",
     "express": "^4.19.2",
     "ipfs-http-client": "^60.0.1",
     "multer": "^1.4.5-lts.1",
-    "cors": "^2.8.5",
-    "csv-parser": "^3.0.0"
+    "web3": "^4.15.0"
   },
   "type": "module"
 }

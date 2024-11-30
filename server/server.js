@@ -1,15 +1,19 @@
 import express from "express";
 import multer from "multer";
 import bodyParser from "body-parser";
+import { ethers } from "ethers";
+import { create } from "ipfs-http-client";
+import csv from "csv-parser";
+import cors from "cors";
+import path from "path"; // Added for path handling
+import { fileURLToPath } from "url"; // For ES6 module __dirname workaround
 
+const authorizedUsers = ["satyam", "user2", "user3"];
 const results = [];
 const Dates = [];
 const Times = [];
 
 import fs from "fs";
-import { create } from "ipfs-http-client";
-import csv from "csv-parser";
-import cors from "cors";
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
@@ -30,28 +34,6 @@ fs.createReadStream("output.csv")
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// fs.createReadStream("output.csv")
-//   .pipe(csv())
-//   .on("data", (data) => Dates.push(data.DATE))
-//   .on("end", () => {
-//     Dates.forEach((DATE) => {
-//       console.log(DATE);
-//     });
-//   });
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// fs.createReadStream("output.csv")
-//   .pipe(csv())
-//   .on("data", (data) => Times.push(data.TIME))
-//   .on("end", () => {
-//     Times.forEach((TIME) => {
-//       console.log(TIME);
-//     });
-//   });
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 const addNewLine = (s) => s + "\n";
 
 const appendToCSV = (cid) => {
@@ -61,27 +43,36 @@ const appendToCSV = (cid) => {
 
 app.post("/submit", upload.single("file"), async (req, res) => {
   try {
+    const { userID, text } = req.body;
+
+    // Authorization check
+    if (!authorizedUsers.includes(userID)) {
+      return res.status(403).send("Unauthorized user.");
+    }
+
+    // Determine content (text or file)
     let content;
-
-    if (req.body.text) {
-      content = req.body.text;
-    }
-
-    if (req.file) {
+    if (text) {
+      content = text;
+    } else if (req.file) {
       content = fs.readFileSync(req.file.path);
-    }
-    let temp;
-
-    if (content) {
-      console.log(content);
-      const { cid } = await client.add({ content });
-      temp = cid;
-      console.log("Content CID:", cid.toString());
-
-      appendToCSV(cid.toString());
+    } else {
+      return res.status(400).send("No content provided.");
     }
 
-    res.send("Data received and CID = " + temp);
+    // Upload content to IPFS
+    const { cid } = await client.add({ content });
+    console.log("Content CID:", cid.toString());
+
+    // Save CID to CSV
+    appendToCSV(cid.toString());
+
+    // Clean up temporary file if uploaded
+    if (req.file) {
+      fs.unlinkSync(req.file.path);
+    }
+
+    res.send(`Data received. CID: ${cid.toString()}`);
   } catch (error) {
     console.error("Error processing request:", error);
     res.status(500).send("Server Error");
